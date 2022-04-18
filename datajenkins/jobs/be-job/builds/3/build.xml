@@ -1,0 +1,67 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-build plugin="workflow-job@1174.vdcb_d054cf74a_">
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <com.dabsquared.gitlabjenkins.cause.GitLabWebHookCause plugin="gitlab-plugin@1.5.30">
+            <data>
+              <actionType>PUSH</actionType>
+              <sourceProjectId>4</sourceProjectId>
+              <targetProjectId>4</targetProjectId>
+              <branch>main</branch>
+              <sourceBranch>main</sourceBranch>
+              <userName>Administrator</userName>
+              <userUsername>root</userUsername>
+              <userEmail></userEmail>
+              <sourceRepoHomepage>http://b7b129b85c2c/root/be-repo</sourceRepoHomepage>
+              <sourceRepoName>be-repo</sourceRepoName>
+              <sourceNamespace>Administrator</sourceNamespace>
+              <sourceRepoUrl>git@b7b129b85c2c:root/be-repo.git</sourceRepoUrl>
+              <sourceRepoSshUrl>git@b7b129b85c2c:root/be-repo.git</sourceRepoSshUrl>
+              <sourceRepoHttpUrl>http://b7b129b85c2c/root/be-repo.git</sourceRepoHttpUrl>
+              <mergeRequestTitle></mergeRequestTitle>
+              <mergeRequestDescription></mergeRequestDescription>
+              <mergeRequestState></mergeRequestState>
+              <mergedByUser></mergedByUser>
+              <mergeRequestAssignee></mergeRequestAssignee>
+              <targetBranch>main</targetBranch>
+              <targetRepoName></targetRepoName>
+              <targetNamespace></targetNamespace>
+              <targetRepoSshUrl></targetRepoSshUrl>
+              <targetRepoHttpUrl></targetRepoHttpUrl>
+              <triggeredByUser>Administrator</triggeredByUser>
+              <before>73ae96d14d38c823c4565b003e99f11378a73da6</before>
+              <after>3a485f31bc821a51fb6dd1f8d8ca09a6560c4d3e</after>
+              <lastCommit>3a485f31bc821a51fb6dd1f8d8ca09a6560c4d3e</lastCommit>
+              <targetProjectUrl>http://b7b129b85c2c/root/be-repo</targetProjectUrl>
+            </data>
+          </com.dabsquared.gitlabjenkins.cause.GitLabWebHookCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <hudson.triggers.SCMTrigger_-BuildAction/>
+    <hudson.plugins.git.RevisionParameterAction plugin="git@4.11.0">
+      <commit>3a485f31bc821a51fb6dd1f8d8ca09a6560c4d3e</commit>
+      <combineCommits>false</combineCommits>
+      <repoURL plugin="git-client@3.11.0">
+        <path>root/be-repo.git</path>
+        <rawPath>root/be-repo.git</rawPath>
+        <user>git</user>
+        <port>-1</port>
+        <host>b7b129b85c2c</host>
+      </repoURL>
+    </hudson.plugins.git.RevisionParameterAction>
+  </actions>
+  <queueId>3</queueId>
+  <timestamp>1650294183005</timestamp>
+  <startTime>1650294183036</startTime>
+  <result>FAILURE</result>
+  <description>Started by GitLab push by Administrator</description>
+  <duration>543</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <completed>true</completed>
+  <checkouts class="hudson.util.PersistedList"/>
+</flow-build>

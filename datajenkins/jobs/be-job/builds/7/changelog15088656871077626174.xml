@@ -1,0 +1,10 @@
+commit 0720198ad5d5b59e05b3325c313586cc40caa9e3
+tree 25dd6ccbf8ae4343f82ab6417da7a74c7d22972e
+parent e5a981bee947909cfd5223baf1b436c631272319
+author Administrator <admin@example.com> 2022-04-18 22:21:19 +0700
+committer Administrator <admin@example.com> 2022-04-18 22:21:19 +0700
+
+    asd
+
+
+:100644 100644 687ddbf49bff0ba660fc74cc850a914eee3c011e 9bdd2d6d5622b166864e0f2b702f159faeba6f50 M	Jenkinsfile

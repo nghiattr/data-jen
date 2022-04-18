@@ -1,0 +1,84 @@
+pipeline{
+    agent none 
+
+    environment{
+        DOCKER_IMAGE = "nghiattracrk8s.azurecr.io/nghia-be"
+        registryUrl = "nghiattracrk8s.azurecr.io"
+        registryName = "nghiattracrk8s/nghia-be"
+        registryCredential = "acr-nghia"
+    }
+
+    stages{
+        stage ("Testing") {
+            agent { node {label 'master'}}
+            steps {
+                sh "docker version"
+                // sh "node --version"
+                // sh "npm version"
+            }
+        }
+        
+        stage('Build'){
+            agent { node {label 'master'}}
+            environment {
+                DOCKER_TAG="${GIT_BRANCH.tokenize('/').pop()}-${GIT_COMMIT.substring(0,7)}"
+            }
+            steps{
+                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} . "
+                sh "docker image ls | grep ${DOCKER_IMAGE}"
+                
+                                  
+                script {
+                  docker.withRegistry( "http://${registryUrl}", registryCredential ) {
+                  sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                }
+                }
+
+
+                sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
+                script {
+                  docker.withRegistry( "http://${registryUrl}", registryCredential ) {
+                  sh "docker push ${DOCKER_IMAGE}:latest"
+                }
+                }
+
+                //remove for disk clean up 
+                sh "docker image rm ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                sh "docker image rm ${DOCKER_IMAGE}:latest"
+         
+            }
+        }  
+
+
+        stage('Deploy'){
+            agent { node {label 'master'}}
+            environment {
+                DOCKER_TAG="${GIT_BRANCH.tokenize('/').pop()}-${GIT_COMMIT.substring(0,7)}"
+            }
+            steps{
+                sh "docker image ls | grep ${DOCKER_IMAGE}"
+                withCredentials([usernamePassword(credentialsId: 'acr-nghia', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
+                    sh "az account set --subscription d36726f6-0379-4b78-b775-961add86cf31"
+                    sh "az aks get-credentials --resource-group rg-week6 --name azure-aks"
+                    // sh "kubectl apply -f deploy-backend.yaml"
+                    // sh "kubectl apply -f service-backend.yaml"
+                    // sh "kubectl set image deployment/be-deployment be-deploy=${DOCKER_IMAGE}:${DOCKER_TAG} --record" 
+                    sh "helm  upgrade --install be-helm be-helm/"
+                    sh "helm list"
+                    sh "kubectl get all"           
+                }
+            }
+        }
+        
+        
+    }
+    post{
+        success{
+            echo "Successfulllll"
+        }
+        failure{
+            echo "Failedddddddddddd"
+         
+        }
+    }
+}
